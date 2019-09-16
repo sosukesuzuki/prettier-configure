@@ -25,7 +25,7 @@ async function main(): Promise<void> {
 
     const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf8'));
     pkgJson.scripts = {
-        format: 'prettier --write "**/*.{js,ts,tsx,md,json,yaml,html}"',
+        format: 'prettier --write "**/*.{js,jsx,ts,tsx,md,json,yaml,html}"',
     };
     pkgJson.husky = {
         hooks: {
