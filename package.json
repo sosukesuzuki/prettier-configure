@@ -1,0 +1,33 @@
+{
+    "name": "prettier-configure",
+    "version": "1.0.0",
+    "repository": "ssh://git@github.com/sosukesuzuki/prettier-configure.git",
+    "license": "MIT",
+    "author": "Sosuke Suzuki <aosukeke@gmail.com>",
+    "main": "index.js",
+    "scripts": {
+        "build": "rm -rf ./build && tsc",
+        "build:watch": "tsc --watch",
+        "format": "prettier --write \"**/*.{js,ts,tsx,md,json,yaml,html}\""
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    },
+    "dependencies": {
+        "chalk": "^2.4.2",
+        "execa": "^2.0.4",
+        "node-emoji": "^1.10.0",
+        "ora": "^3.4.0"
+    },
+    "devDependencies": {
+        "@types/node": "^12.7.5",
+        "@types/node-emoji": "^1.8.1",
+        "@types/prettier": "^1.18.2",
+        "husky": "^3.0.5",
+        "prettier": "^1.18.2",
+        "pretty-quick": "^1.11.1",
+        "typescript": "^3.6.3"
+    }
+}
