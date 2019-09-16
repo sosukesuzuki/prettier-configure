@@ -32,7 +32,7 @@ async function main(): Promise<void> {
             'pre-commit': 'pretty-quick --staged',
         },
     };
-    const pkgJsonString = JSON.stringify(pkgJson, null, 2);
+    const pkgJsonString = JSON.stringify(pkgJson, null, 4);
     await writeFile(pkgJsonPath, pkgJsonString);
 
     writingSpinar.stop();
