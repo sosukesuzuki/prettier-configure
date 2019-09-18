@@ -23,13 +23,7 @@ async function installToDevDependencies(...packages: string[]) {
     await execa('yarn', ['add', '--dev', ...packages]);
 }
 
-export async function run(): Promise<void> {
-    const installingSpinar = ora('Installing packages...').start();
-    await installToDevDependencies('prettier', 'husky', 'pretty-quick');
-    installingSpinar.stop();
-
-    const pkgJsonSpinar = ora('Modifying package.json...').start();
-
+async function setUpPackageJson() {
     const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf8'));
     pkgJson.scripts = {
         format: 'prettier --write "**/*.{js,jsx,ts,tsx,md,json,yaml,html}"',
@@ -41,11 +35,9 @@ export async function run(): Promise<void> {
     };
     const pkgJsonString = JSON.stringify(pkgJson, null, 4);
     await writeFile(pkgJsonPath, pkgJsonString);
+}
 
-    pkgJsonSpinar.stop();
-
-    const configFilesSpinar = ora('Adding config for Prettier').start();
-
+async function setUpConfigFiles() {
     const prettierrcPath = path.join(pwd, '.prettierrc.yaml');
     await touch(prettierrcPath);
     await writeFile(
@@ -64,8 +56,16 @@ tabWidth: 4
 package.json
 `,
     );
+}
 
-    configFilesSpinar.stop();
+export async function run(): Promise<void> {
+    const spinar = ora('setting up...').start();
+    await Promise.all([
+        await installToDevDependencies('prettier', 'husky', 'pretty-quick'),
+        await setUpPackageJson(),
+        await setUpConfigFiles(),
+    ]);
+    spinar.stop();
 
     console.log(sparkles, ' Done');
 }
