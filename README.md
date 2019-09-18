@@ -1,6 +1,6 @@
 # prettier-configure
 
-Run my setting up for [Prettier](https://github.com/prettier/prettier) and [Husky](https://github.com/typicode/husky) automatically.
+Setting up for [Prettier](https://github.com/prettier/prettier) and [Husky](https://github.com/typicode/husky) automatically.
 
 ## Usage
 
