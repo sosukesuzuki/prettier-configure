@@ -23,7 +23,7 @@ async function installToDevDependencies(...packages: string[]) {
     await execa('yarn', ['add', '--dev', ...packages]);
 }
 
-async function main(): Promise<void> {
+export async function run(): Promise<void> {
     const installingSpinar = ora('Installing packages...').start();
     await installToDevDependencies('prettier', 'husky', 'pretty-quick');
     installingSpinar.stop();
@@ -69,5 +69,3 @@ package.json
 
     console.log(sparkles, ' Done');
 }
-
-main();
