@@ -1,6 +1,6 @@
 {
     "name": "prettier-configure",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository": "ssh://git@github.com/sosukesuzuki/prettier-configure.git",
     "license": "MIT",
     "author": "Sosuke Suzuki <aosukeke@gmail.com>",
