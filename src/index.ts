@@ -1,17 +1,13 @@
 import path from 'path';
-import execa from 'execa';
 import ora from 'ora';
 import { get as emoji } from 'node-emoji';
 import { writeFile, touch } from './lib/fs';
 import { writePkgJson } from './lib/write_pkg_json';
+import { installToDevDeps } from './lib/install_dep';
 
 const sparkles = emoji('sparkles');
 
 const pwd = process.cwd();
-
-async function installToDevDependencies(...packages: string[]) {
-    await execa('yarn', ['add', '--dev', ...packages]);
-}
 
 async function setUpPackageJson() {
     await writePkgJson({
@@ -50,7 +46,7 @@ package.json
 export async function run(): Promise<void> {
     const spinar = ora('setting up...').start();
     await Promise.all([
-        await installToDevDependencies('prettier', 'husky', 'pretty-quick'),
+        await installToDevDeps(['prettier', 'husky', 'pretty-quick']),
         await setUpPackageJson(),
         await setUpConfigFiles(),
     ]);
