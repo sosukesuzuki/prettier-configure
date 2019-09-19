@@ -2,29 +2,28 @@ import path from 'path';
 import execa from 'execa';
 import ora from 'ora';
 import { get as emoji } from 'node-emoji';
-import { readFile, writeFile, touch } from './lib/fs';
+import { writeFile, touch } from './lib/fs';
+import { writePkgJson } from './lib/write_pkg_json';
 
 const sparkles = emoji('sparkles');
 
 const pwd = process.cwd();
-const pkgJsonPath = path.join(pwd, 'package.json');
 
 async function installToDevDependencies(...packages: string[]) {
     await execa('yarn', ['add', '--dev', ...packages]);
 }
 
 async function setUpPackageJson() {
-    const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf8'));
-    pkgJson.scripts = {
-        format: 'prettier --write "**/*.{js,jsx,ts,tsx,md,json,yaml,html}"',
-    };
-    pkgJson.husky = {
-        hooks: {
-            'pre-commit': 'pretty-quick --staged',
+    await writePkgJson({
+        scripts: {
+            format: 'prettier --write "**/*.{js,jsx,ts,tsx,md,json,yaml,html}"',
         },
-    };
-    const pkgJsonString = JSON.stringify(pkgJson, null, 4);
-    await writeFile(pkgJsonPath, pkgJsonString);
+        husky: {
+            hooks: {
+                'pre-commit': 'pretty-quick --staged',
+            },
+        },
+    });
 }
 
 async function setUpConfigFiles() {
