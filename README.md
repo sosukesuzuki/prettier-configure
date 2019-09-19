@@ -5,8 +5,7 @@ Setting up for [Prettier](https://github.com/prettier/prettier) and [Husky](http
 ## Usage
 
 ```sh
-npm -g install prettier-configure
-prettier-configure
+npx prettier-configure
 ```
 
 ## `.prettierrc.yaml`
