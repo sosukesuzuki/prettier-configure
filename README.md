@@ -8,7 +8,7 @@ Setting up for [Prettier](https://github.com/prettier/prettier) and [Husky](http
 npx prettier-configure
 ```
 
-### Options
+## Options
 
 **manager**
 
