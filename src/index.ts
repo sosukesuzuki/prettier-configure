@@ -1,23 +1,13 @@
-import fs from 'fs';
 import path from 'path';
-import { promisify } from 'util';
 import execa from 'execa';
 import ora from 'ora';
 import { get as emoji } from 'node-emoji';
+import { readFile, writeFile, touch } from './lib/fs';
 
 const sparkles = emoji('sparkles');
 
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const open = promisify(fs.open);
-const close = promisify(fs.close);
-
 const pwd = process.cwd();
 const pkgJsonPath = path.join(pwd, 'package.json');
-
-async function touch(filePath: string): Promise<void> {
-    await close(await open(filePath, 'w'));
-}
 
 async function installToDevDependencies(...packages: string[]) {
     await execa('yarn', ['add', '--dev', ...packages]);
