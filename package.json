@@ -6,6 +6,10 @@
     "author": "Sosuke Suzuki <aosukeke@gmail.com>",
     "main": "./build/index.js",
     "bin": "./bin/prettier-configure.js",
+    "files": [
+        "build/**/*",
+        "bin/**/*"
+    ],
     "scripts": {
         "build": "rm -rf ./build && tsc",
         "build:watch": "tsc --watch",
