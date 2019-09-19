@@ -1,7 +1,7 @@
 import execa = require('execa');
 
-const yarn = 'yarn';
-const npm = 'npm';
+export const yarn = 'yarn';
+export const npm = 'npm';
 
 type Manager = typeof yarn | typeof npm;
 

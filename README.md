@@ -8,6 +8,16 @@ Setting up for [Prettier](https://github.com/prettier/prettier) and [Husky](http
 npx prettier-configure
 ```
 
+### Options
+
+**manager**
+
+Choose a package manager (in `yarn` or `npm`) to use for dependent installations.(Default: `yarn`)
+
+```sh
+npx prettier-configure --manager=npm
+```
+
 ## `.prettierrc.yaml`
 
 | rule            | value  |

@@ -1,9 +1,10 @@
 import path from 'path';
 import ora from 'ora';
 import { get as emoji } from 'node-emoji';
+import parseArg from 'minimist';
 import { writeFile, touch } from './lib/fs';
 import { writePkgJson } from './lib/write_pkg_json';
-import { installToDevDeps } from './lib/install_dep';
+import { installToDevDeps, yarn } from './lib/install_dep';
 
 const sparkles = emoji('sparkles');
 
@@ -43,13 +44,21 @@ package.json
     );
 }
 
-export async function run(): Promise<void> {
+export async function run(args: string[]): Promise<void> {
+    const parsedArgs = parseArg(args);
+
+    const { manager = yarn } = parsedArgs;
+
     const spinar = ora('setting up...').start();
+
     await Promise.all([
-        await installToDevDeps(['prettier', 'husky', 'pretty-quick']),
+        await installToDevDeps(['prettier', 'husky', 'pretty-quick'], {
+            manager,
+        }),
         await setUpPackageJson(),
         await setUpConfigFiles(),
     ]);
+
     spinar.stop();
 
     console.log(sparkles, ' Done');
